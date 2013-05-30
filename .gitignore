@@ -11,3 +11,10 @@
 *.lai
 *.la
 *.a
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
