@@ -18,3 +18,5 @@
 *.jar
 *.war
 *.ear
+
+*.exe
