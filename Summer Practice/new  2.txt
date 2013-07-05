@@ -1,0 +1,105 @@
+#include<stdio.h>
+#include<string.h>
+#include<vector>
+#include<queue>
+
+using namespace std;
+
+#define Node pair<int, int>
+#define City pair<double, pair<int, int> >
+#define cost first
+#define steps second.first
+#define id second.second
+#define mp(a,b,c) make_pair(a, make_pair(b,c))
+
+int vis [33];
+int prev [33];
+int tickets[8];
+vector<Node> graph[33];
+
+int n,m,p,a,b;
+
+int use_ticket(int total, int ticket){
+    return total|(1<<ticket);
+}
+
+int is_used(int total, int ticket){
+    return (total&(1<<ticket))>0;
+}
+
+void dfs(int node, int steps, vector<int> v, int vis){
+    if (is_used(vis, node))
+        return;
+    if (node==b){
+        sort(v.begin(), v.end());
+        double total_cost = 0.0;
+        for (int i=v.size()-1, j = n-1;i>=0;i--,j--){
+            total_cost+=(v[i]*1.0/tickets[j]);
+        }
+        if (total_cost<min){
+            min = total_cost;
+        }
+    }
+    if (steps==8)
+        return;
+    int nv = use_ticket(vis, node);
+    for (int i=0;i<graph[node].size();i++){
+        vector<int> vec(v);
+        vec.push_back(graph[node][i].second);
+        dfs(graph[node][i].first, steps+1, vec, nv);
+    }
+}
+
+void dijkstra(){
+    memset(vis, 0, sizeof vis);
+    memset(prev, -1, sizeof prev);
+    priority_queue<City, vector<City>, greater<City> > pq;
+    pq.push(mp(0,0,a));
+    while (!pq.empty()){
+        City c = pq.top();
+        pq.pop();
+        if (vis[c.id])
+                continue;
+        vis[c.id] = 1;
+        prev[c.id] = c.previous;
+        if (c.id==b){
+            sort(tickets, tickets+n);
+            int node = c.id, ind = 0;
+            int path[c.steps];
+            double cst = 0;
+            for (int i=n-1;i>=0;i--){
+                
+            }
+            printf("%lf\n", c.cost);
+            return;
+        }
+        //printf("Bitmask: %d\n", c.bitmask);
+        for (int i=0;i<graph[c.id].size();i++){
+            //for (int j=0;j<n;j++){
+              //  if (!is_used(c.bitmask, j)){
+                    //printf("%d passed\n", j);
+                    pq.push(mp((c.cost*c.steps+graph[c.id][i].second)*1.0/(c.steps+1), c.steps+1, graph[c.id][i].first));
+                //}
+            }
+        }
+    }
+    printf("Impossible\n");
+}
+
+int main(){
+    int x,y,z;
+    scanf("%d %d %d %d %d", &n, &m, &p, &a, &b);
+    while(!(!n&&!m&&!p&&!a&&!b)){
+        for (int i=0;i<n;i++)
+            scanf("%d", &tickets[i]);
+        for (int i=0;i<=m;i++)
+            graph[i].clear();
+        for (int i=0;i<p;i++){
+            scanf("%d %d %d", &x, &y, &z);
+            graph[x].push_back(Node(y,z));
+            graph[y].push_back(Node(x,z));
+        }
+        dijkstra();
+        scanf("%d %d %d %d %d", &n, &m, &p, &a, &b);
+    }
+}
