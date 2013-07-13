@@ -1,0 +1,2 @@
+SRM340 DIV2 Level 2: using array indices (max 50) of min & max to get values instead of using the values themselves(max 1000)
+SRM363 DIV2 Level 2: Very good idea + Catalan Numbers
