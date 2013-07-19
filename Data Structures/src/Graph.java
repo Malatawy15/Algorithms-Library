@@ -27,9 +27,9 @@ public class Graph <E extends Comparable<E>>{
 		for (int i = 0;i<conn.length;i++){
 			u = conn[i][0];
 			v = conn[i][1];
-			graph[u].add(v);
+			//graph[u].add(v);
 			if (!isDirected){
-				graph[v].add(u);
+				//graph[v].add(u);
 			}
 		}
 	}

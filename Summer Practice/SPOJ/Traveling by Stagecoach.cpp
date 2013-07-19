@@ -6,59 +6,36 @@
 using namespace std;
 
 #define Node pair<int, int>
-#define City pair<double, pair<int, int> >
-#define cost first
-#define bitmask second.first
-#define id second.second
-#define mp(a,b,c) make_pair(a, make_pair(b,c))
+#define INF 1000000000
 
-int vis [33][300];
+double dp [33][300];
 int tickets[8];
 vector<Node> graph[33];
 
 int n,m,p,a,b;
 
-int use_ticket(int total, int ticket){
-    return total|(1<<ticket);
-}
-
-int is_used(int total, int ticket){
-    return (total&(1<<ticket))>0;
-}
-
-void dijkstra(){
-    memset(vis, 0, sizeof vis);
-    priority_queue<City, vector<City>, greater<City> > pq;
-    pq.push(mp(0,0,a));
-    while (!pq.empty()){
-        City c = pq.top();
-        pq.pop();
-        if (c.id==b){
-            printf("%lf\n", c.cost);
-            return;
-        }
-        if (vis[c.id][c.bitmask])
-            continue;
-        vis[c.id][c.bitmask] = 1;
-        //printf("Bitmask: %d\n", c.bitmask);
-        for (int i=0;i<graph[c.id].size();i++){
-            for (int j=0;j<n;j++){
-                if (!is_used(c.bitmask, j)){
-                    //printf("%d passed\n", j);
-                    pq.push(mp(c.cost+graph[c.id][i].second*1.0/tickets[j], use_ticket(c.bitmask,j), graph[c.id][i].first));
-                }
-            }
-        }
+double minimize(int ind, int bitmask){
+    if (ind==b)
+        return 0;
+    if (dp[ind][bitmask]!=-1) return dp[ind][bitmask];
+    dp[ind][bitmask] = INF;
+    for (int i=0;i<graph[ind].size();i++){
+        for (int j=0;j<n;j++)
+            if (!(bitmask&(1<<j)))
+                dp[ind][bitmask] = min(dp[ind][bitmask], (graph[ind][i].second*1.0/tickets[j])+minimize(graph[ind][i].first, bitmask|(1<<j)));
     }
-    printf("Impossible\n");
+    return dp[ind][bitmask];
 }
 
 int main(){
-    int x,y,z;
+    int x,y,z,flag = 1;
     scanf("%d %d %d %d %d", &n, &m, &p, &a, &b);
     while(!(!n&&!m&&!p&&!a&&!b)){
         for (int i=0;i<n;i++)
             scanf("%d", &tickets[i]);
+	    if (flag)
+            flag = 0;
+	    else
         for (int i=0;i<=m;i++)
             graph[i].clear();
         for (int i=0;i<p;i++){
@@ -66,7 +43,13 @@ int main(){
             graph[x].push_back(Node(y,z));
             graph[y].push_back(Node(x,z));
         }
-        dijkstra();
+        for (int i=0;i<m+2;i++)
+            for (int j=0;j<257;j++)
+                dp[i][j] = -1;
+        double ret = minimize(a,0);
+        if (ret==INF)
+            printf("Impossible\n");
+        else printf("%lf\n", ret);
         scanf("%d %d %d %d %d", &n, &m, &p, &a, &b);
     }
 }
