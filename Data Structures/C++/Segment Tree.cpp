@@ -1,60 +1,98 @@
 #include<stdio.h>
+#include<vector>
 #include<algorithm>
 
 using namespace std;
 
-#define MAXN 1000000
-#define INF 1000000000
+struct segment_tree{
+    static const int inf = 0x7fffffff;
+    int N;
+    vector<int> vals;
+    vector<int> tree;
+    vector<int> lazy;
+    vector<int> flag;
 
-int sTree[(MAXN<<1)+10];
-int vals[MAXN+10];
-int N;
-
-void init(int n){
-    N = 1;
-    while(N<n)
-        N<<=1;
-    for (int i=0;i<=N<<1;i++){
-        sTree[i] = INF;
+    segment_tree(int n, vector<int> v, int type){ //0-rmq, 1-rsq
+        nearest(n);
+        vals = vector<int>(v);
+        lazy = vector<int>(N<<1,0);
+        flag = vector<int>(N<<1,0);
+        if (type){
+            build_rsq(1,1,N,n);
+        }
+        else {
+            build_rmq(1,1,N,n);
+        }
     }
-    for (int i=1;i<=N;i++)
-        if (i>n)
-            vals[i] = INF;
-        else scanf("%d", &vals[i]);
-}
 
-void build(int node, int b, int e){
-    if (b==e)
-        sTree[node] = vals[b];
-    else{
-        build(node<<1, b, (b+e)>>1);
-        build((node<<1)+1, ((b+e)>>1)+1, e);
-        sTree[node] = min(sTree[node<<1], sTree[(node<<1)+1]);
+    segment_tree(int n, int value, int type){ //0-rmq, 1-rsq
+        nearest(n);
+        vals = vector<int>(n,value);
+        lazy = vector<int>(N<<1,0);
+        flag = vector<int>(N<<1,0);
+        if (type){
+            build_rsq(1,1,N,n);
+        }
+        else {
+            build_rmq(1,1,N,n);
+        }
     }
-}
 
-void update(int ind, int nv){
-    ind += N-1;
-    sTree[ind] = nv;
-    while(ind>1){
-        ind>>=1;
-        sTree[ind] = min(sTree[ind<<1], sTree[(ind<<1)+1]);
+    void nearest(int n){
+        N = 1;
+        while(N<n){
+            N<<=1;
+        }
     }
-}
 
-int query(int node, int b, int e, int rb, int re){
-    if (re<b||rb>e)
-        return INF;
-    if (b>=rb&&e<=re)
-        return sTree[node];
-    return min(query(node<<1, b, (b+e)>>1, rb, re), query((node<<1)+1, ((b+e)>>1)+1, e, rb, re));
-}
+    void build_rmq(int node, int s, int e, int n){
+        if (s>e){
+            return;
+        }
+        if (s==e){ //leaf node
+            if (s>n){
+                tree[node] = inf;
+            }
+            else {
+                tree[node] = vals[s-1];
+            }
+            return;
+        }
+        int mid = s+((e-s)>>1), ln = node<<1, rn = (node<<1)+1;
+        build_rmq(ln, s, mid, n);
+        build_rmq(rn, mid+1, e, n);
+        tree[node] = min(tree[ln],tree[rn]);
+    }
 
-int query(int rb, int re){
-    return query(1, 1, N, rb, re);
-}
+    void build_rsq(int node, int s, int e, int n){
+        if (s>e){
+            return;
+        }
+        if (s==e){ //leaf node
+            if (s>n){
+                tree[node] = 0;
+            }
+            else {
+                tree[node] = vals[s-1];
+            }
+            return;
+        }
+        int mid = s+((e-s)>>1), ln = node<<1, rn = (node<<1)+1;
+        build_rsq(ln, s, mid, n);
+        build_rsq(rn, mid+1, e, n);
+        tree[node] = tree[ln]+tree[rn];
+    }
+
+    int get_index(int index){ // 1-based index
+        return tree[N+index-1];
+    }
+
+};
+
+
 
 int main(){
+    /*
     int n;
     scanf("%d", &n);
     init(n);
@@ -66,4 +104,5 @@ int main(){
     printf("%d\n", query(1,2));
     printf("%d\n", query(2,3));
     printf("%d\n", query(1,3));
+    */
 }
