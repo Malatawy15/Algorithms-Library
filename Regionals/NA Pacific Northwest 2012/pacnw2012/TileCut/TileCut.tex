@@ -1,0 +1,55 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{tabularx}
+
+\title{TileCut}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+When Frodo, Sam, Merry, and Pippin are at the Green Dragon Inn drinking ale, they
+like to play a little game with parchment and pen to decide who buys the next round.  The
+game works as follows: 
+
+Given an $m \times n$ rectangular tile with each square marked with one of the
+incantations \texttt{W}, \texttt{I}, and \texttt{N}, find the maximal number of
+triominoes that can be cut from this tile such that the triomino has \texttt{W}
+and \texttt{N} on the ends and \texttt{I} in the middle (that is, it spells
+\texttt{WIN} in some order).  Of course the only possible triominoes are the
+one with three squares in a straight line and the two ell-shaped ones.
+The Hobbit that is able to find the maximum number wins and chooses who buys
+the next round.  Your job is to find the maximal number.  
+
+Side note: Sam and Pippin tend to buy the most rounds of ale when they play this game,
+so they are lobbying to change the game to Rock, Parchment, Sword (RPS)!
+
+\section{Input}
+
+Each input file will contain multiple test cases.  Each test case consists of
+an $m \times n$ rectangular grid (where $1 \le m, n \le 30$) containing only
+the letters \texttt{W}, \texttt{I}, and \texttt{N}.  Test cases will be
+separated by a blank line.  Input will be terminated by end-of-file.
+
+\section{Output}
+
+For each input test case, print a line containing a single integer indicating
+the maximum total number of tiles that can be formed.
+
+\vskip 16pt
+\noindent
+\setlength{\extrarowheight}{4pt}
+\begin{tabularx}{\textwidth}{ | X | X | }
+\hline
+\textbf{Sample Input} & \textbf{Sample Output} \\
+\verbatiminput{TileCut.sample.in}
+&
+\verbatiminput{TileCut.sample.out}
+\\
+\hline
+\end{tabularx}
+
+\end{document}

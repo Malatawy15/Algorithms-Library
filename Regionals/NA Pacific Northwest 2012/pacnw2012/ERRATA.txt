@@ -1,0 +1,10 @@
+Note there was a single large piece of errata on the first problem
+(Good Versus Evil).  The worth of wizards on the side of evil should
+have been the same as the side of good, which is 10.  When the problem
+was translated to .tex, the evil wizard value was mistakenly listed
+as 11.  The posted solutions are all based on the value of 10.
+
+During the contest, we updated the judge solution to incorporate a value
+of 11 for evil wizards as was (incorrectly) listed on the problem
+statement.
+

@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{tabularx}
+
+\title{Magic Multiple}
+\date{}
+
+\begin{document}
+\maketitle
+
+The Elvish races of Middle Earth believed that certain numbers were more
+significant than others.  When using a particular quantity $n$ of metal to
+forge a particular sword, they believed that sword would be most powerful if
+the thickness $k$ were chosen according to the following rule:
+
+Given a nonnegative integer $n$, what is the smallest $k$ such that the
+decimal representations of the integers in the sequence:
+\begin{eqnarray*}
+    n,\quad 2n,\quad 3n,\quad 4n,\quad 5n,\quad \ldots,\quad kn
+\end{eqnarray*}
+contain all ten digits (0 through 9) at least once?
+
+Lord Elrond of Rivendell has commissioned you with the task to develop
+an algorithm to find the optimal thickness ($k$) for any given quantity of
+metal ($n$).
+
+\section{Input}
+
+Input will consist of a single integer $n$ per line.  The end of input
+will be signaled by end of file.  The input integer will be between 1
+and 200,000,000, inclusive.
+
+\section{Output}
+
+The output will consist of a single integer per line, indicating the
+value of $k$ needed such that every digit from 0 through 9 is seen 
+at least once.
+
+\vskip 16pt
+\noindent
+\setlength{\extrarowheight}{4pt}
+\begin{tabularx}{\textwidth}{ | X | X | }
+\hline
+\textbf{Sample Input} & \textbf{Sample Output} \\
+\verbatiminput{MagicMultiple.sample.in}
+&
+\verbatiminput{MagicMultiple.sample.out}
+\\
+\hline
+\end{tabularx}
+
+\end{document}

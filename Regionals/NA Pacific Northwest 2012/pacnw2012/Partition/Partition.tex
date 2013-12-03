@@ -1,0 +1,89 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{tabularx}
+
+\title{Partition}
+\date{}
+
+\begin{document}
+\maketitle
+
+The Ents are known as the shepherds of the forest. Treebeard, the oldest living
+Ent in Middle Earth, needs to determine which trees he is to shepherd and which
+trees are to be shepherded by his young fellow Ent, Bregalad. They have a
+rectangular portion of Fangorn forest containing an even number of trees that
+they need to divide into two pieces using a single straight boundary line.  In
+order to equitably distribute the workload, Treebeard and Bregalad have
+decided that each of their halves of the forest need to contain equal area and
+contain an equal number of trees. If a tree lies exactly on the dividing line,
+then that tree is counted in one or the other of the halves of the forest but
+not both.  Any tree exactly on the dividing line may be assigned to
+either Treebeard or Bregalad.
+
+%Given a rectangle, along with an even number of points in its interior, find a
+%way to split the points evenly into two halves with a single cut; that is,
+%partition the points into two sets $A$ and $B$ of equal size such that there exists
+%a straight line that divides the rectangle into two pieces of equal area
+%corresponding to the two sets.  If a point lies exactly on the dividing line,
+%it is counted in exactly one set of your choice.
+
+\section{Input}
+
+Input will consist of multiple test cases.  Each test case begins with a line
+with 3 space-separated integers $N$, $W$, and $H$, denoting the number of
+trees, the width of the forest, and the height of the forest, respectively.
+The forest's four corners are $(0,0)$, $(W,0)$, $(0,H)$, and $(W,H)$.
+Following this line are $N$ lines each with a pair of space-separated integers
+$x_i$ and $y_i$ denoting the coordinates of the 
+$i^{\mbox{\scriptsize{th}}}$
+tree.  Furthermore,
+\begin{itemize}
+
+\item $2 \le N \le 50000$, $2 \le W \le 10000$, $2 \le H \le 10000$, $N$ is even, $W$
+and $H$ are not both even.
+\item $0 < x_i < W$, $0 < y_i < H$ for all $i$.  All locations of
+trees are distinct.
+\end{itemize}
+
+%Input will consist of multiple test cases.  Each test case begins with a line
+%with 3 space-separated integers $N$, $W$, and $H$, denoting the number of
+%points, the width of the rectangle, and the height of the rectangle,
+%respectively.  The rectangle's four corners are $(0,0)$, $(w,0)$, $(0,h)$, and
+%$(w,h)$.  Following this line are $N$ lines each with a pair of space-separated
+%integers $x_i$ and $y_i$ denoting the coordinates of the $i$th point.
+
+%\begin{itemize}
+%\item $2 \le N \le 50000$, $2 \le W \le 10000$, $2 \le H \le 10000$, $N$ is even, $W$
+%and $H$ are not both even.
+%\item $0 < x_i < W$ for all $i$, $0 < y_i < H$ for all $i$.  All points are distinct.
+%\end{itemize}
+
+Input will be terminated with a case where $N = W = H = 0$, which should not be processed.
+
+\section{Output}
+
+For each test case, print out $N/2$ lines.  On each line, print two
+space-separated integers $x_i$ and $y_i$, denoting the coordinates of the 
+$i^{\mbox{\scriptsize{th}}}$
+tree in the half of the forest that is to be shepherded by Treebeard.
+
+%For each test case, print out $N/2$ lines.  On each line, print two
+%space-separated integers $x_i$ and $y_i$, denoting the coordinates of the $i$th
+%point in set $A$.
+
+\vskip 16pt
+\noindent
+\setlength{\extrarowheight}{4pt}
+\begin{tabularx}{\textwidth}{ | X | X | }
+\hline
+\textbf{Sample Input} & \textbf{Sample Output} \\
+\verbatiminput{Partition.sample.in}
+&
+\verbatiminput{Partition.sample.out}
+\\
+\hline
+\end{tabularx}
+
+\end{document}

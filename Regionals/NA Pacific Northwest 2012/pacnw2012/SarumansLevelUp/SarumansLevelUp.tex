@@ -1,0 +1,52 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{tabularx}
+
+\title{Saruman's Level Up}
+\date{}
+
+\begin{document}
+\maketitle
+
+Saruman's army of orcs and other dark minions continuously mine and harvest
+lumber out of the land surrounding his mighty tower for $N$ continuous days.
+On day number $i$, Saruman either chooses to spend resources on mining coal and
+harvesting more lumber, or on raising the level (i.e., height) of his tower.
+He levels up his tower by one unit only on days where the binary representation
+of $i$ contains a total number of 1's that is an exact multiple of 3.  Assume
+that the initial level of his tower on day 0 is zero.
+
+For example, Saruman will level up his tower on day 7 (binary 111), 
+next on day 11 (binary 1011) and then day 13, day 14, day 19, and so 
+on.
+
+Saruman would like to forecast the level of his tower after $N$ 
+days.  Can you write a program to help?
+
+\section{Input}
+
+The input file will contain multiple input test cases, each on a single line.
+Each test case consists of a positive integer $N < 10^{16}$, as described
+above. The input ends on end of file.
+
+\section{Output}
+
+For each test case, output one line: ``\verb+Day N: Level = L+", where \verb+N+ is 
+the input $N$, and \verb+L+ is the number of levels after $N$ days.
+
+\vskip 16pt
+\noindent
+\setlength{\extrarowheight}{4pt}
+\begin{tabularx}{\textwidth}{ | X | X | }
+\hline
+\textbf{Sample Input} & \textbf{Sample Output} \\
+\verbatiminput{SarumansLevelUp.sample.in}
+&
+\verbatiminput{SarumansLevelUp.sample.out}
+\\
+\hline
+\end{tabularx}
+
+\end{document}

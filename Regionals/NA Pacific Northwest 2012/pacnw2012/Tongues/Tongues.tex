@@ -1,0 +1,72 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{tabularx}
+
+\title{Tongues}
+\date{}
+
+\begin{document}
+\maketitle
+
+Gandalf's writings have long been available for study, but no one
+has yet figured out what language they are written in.  Recently,
+due to programming work by a hacker known only by the code name
+ROT13, it has been discovered that Gandalf used nothing but a
+simple letter substitution scheme, and further, that it is its
+own inverse---the same operation scrambles the message as
+unscrambles it.
+
+This operation is performed by replacing vowels in the sequence
+\begin{quote}
+(a i y e o u)
+\end{quote}
+with the vowel three advanced, cyclicly, while preserving case (i.e., lower or
+upper).  Similarly, consonants
+are replaced from the sequence
+\begin{quote}
+(b k x z n h d c w g p v j q t s r l m f)
+\end{quote}
+by advancing ten letters.  So for instance the phrase
+\begin{quote}
+   One ring to rule them all.
+\end{quote}
+translates to
+\begin{quote}
+   Ita dotf ni dyca nsaw ecc.
+\end{quote}
+The fascinating thing about this transformation is that the resulting
+language yields pronounceable words.
+
+For this problem, you will write code to translate Gandalf's
+manuscripts into plain text.
+
+\section{Input}
+
+The input file will contain multiple test cases.  Each test case consists of a
+single line containing up to 100 characters, representing some text written
+by Gandalf.  All characters will be plain ASCII, in the range space (32)
+to tilde (126), plus a newline terminating each line.
+The end of the input is denoted by the end-of-file.
+
+\section{Output}
+
+For each input test case, print its translation into plaintext.
+The output should contain exactly the same number of
+lines and characters as the input.
+
+\vskip 16pt
+\noindent
+\setlength{\extrarowheight}{4pt}
+\begin{tabularx}{\textwidth}{ | X | X | }
+\hline
+\textbf{Sample Input} & \textbf{Sample Output} \\
+\verbatiminput{Tongues.sample.in}
+&
+\verbatiminput{Tongues.sample.out}
+\\
+\hline
+\end{tabularx}
+
+\end{document}

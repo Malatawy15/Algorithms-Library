@@ -1,0 +1,63 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{tabularx}
+
+
+
+\title{Practice Problem:
+ Print the Last Character\\ 
+Time limit 2 seconds}
+\date{}
+\begin{document}
+\maketitle
+
+Write a program that reads lines of text from input and prints the last character in each line.
+
+%NOTE: Do not use this problem for frivolous submissions, clarifications, or testing how judges 
+%will respond.  Doing so may disqualify your team from the contest.
+
+\section{Input}
+
+The input will start with a line containing a single non-negative integer 
+value specifying the number of lines of text that will follow.  Following 
+the integer will be the specified number of lines.  See the Sample Input 
+section below for clarification.  Each line of text will contain no more 
+than 20 characters.
+
+NOTE: All input for each problem in the contest will come from standard in 
+(stdin / cin / System.in).  Note that you will not prompt for input, 
+rather you will just read it in.  Testing is typically done by redirecting 
+input from a file that contains the data necessary for your program, while 
+at the command prompt.  If you are unsure how to do this, seek help from 
+one of the contest staff.
+\section{Output}
+
+For each line read, write the last character in that line (the character 
+that precedes the carriage return at the end of that line).  That character 
+is guaranteed to be a non-whitespace character.  See the Sample Output section 
+below for clarification.  Follow the format shown exactly. Failure to do so 
+will result in an ``\verb+Output Format Error+''. 
+% Part of any problem in the 
+%contest includes properly formatting your output as per the problem 
+%specifications.  If you have the right answer, but in the wrong format, 
+%it still counts as a wrong answer, so be sure you carefully adhere to the 
+%output specifications.
+
+NOTE: All output for each problem in the contest (including this one) will 
+be written to stdout / cout / System.out
+\vskip 16pt
+\noindent
+\setlength{\extrarowheight}{4pt}
+\begin{tabularx}{\textwidth}{ | p{5cm} | X | }
+\hline
+\textbf{Sample Input} & \textbf{Sample Output} \\
+\verbatiminput{Practice.sample.in}
+&
+\verbatiminput{Practice.sample.out}
+\\
+\hline
+\end{tabularx}
+
+\end{document}

@@ -1,0 +1,178 @@
+Discussion from the problem authors or someone that solved the problems.  
+We hope this proves educational for you!
+
+
+Problem A:  Good Versus Evil
+
+To solve this problem, you needed to know how to parse input, perform
+a couple of simple arithmetic comparisons, and output the appropriate
+phrase.  Consider it little more than a warm-up.
+
+Problem B:  Magic Multiple
+
+Simple brute force worked here, as long as you were not mislead into
+thinking a 32-bit int would be sufficient.  The input 125,000,125 does
+not show a 9 until n=72, at which point k*n is 9,000,009,000, which
+overflows 32-bits.
+
+Problem C:  Painted Cube
+
+Standard breadth-first state search works fine here, using a simple
+vector (or pair of vectors) as a queue and a hashtable or map to keep
+track of seen states.  The problem was written specifically to make it
+relatively easy to compress all the state into a single 32-bit
+integer; if you tried to store a string representation of the entire
+board, your solution would probably exceed the time limit.  Exiting as
+soon as you found a solution helped speed too, but was not completely
+necessary as the entire state space is no more than 26 * (26 choose 6)
+or just under 6 million states.  The code required was somewhat
+lengthy but very straightforward with no gotchas.
+
+Problem D:  Partition
+
+To solve this, you simply needed to sort the points by their angle
+from the center of the rectangle, and then scan the resulting array,
+seeing if there was a contiguous chunk of n/2 points that could be
+split from the rest by a straight line through the origin.
+
+Deeper discussion of D 
+
+The key observation here is that all lines that divide the rectangle in 
+half by area have to pass through the center of the rectangle.  As a result, 
+they are a single-parameter family, with the parameter being the slope of 
+the line, or equivalently, the angle the line makes with some reference 
+line.  It is actually really helpful to show that a solution always exists, 
+because it gives you the idea for the algorithm: Imagine picking any dividing 
+line to start with, which divides the points into two sets.  We'll call the 
+sets A and B.  If A and B are of equal size, we're done; if not, assume WLOG 
+that |A| < |B|.  Now imagine rotating this dividing line, changing the sets 
+as we go along.  By the time we've rotated the line by 180 degrees, we will 
+have effectively swapped A and B, so |A| > |B|.  But during this process, we 
+transfer points from one set to the other one at a time, which means at some 
+point during this process, the sets have to be exactly balanced.  So for our 
+algorithm, we'll do exactly the same thing: We'll choose some dividing line 
+(say, the horizontal line), sort all the points by angle, and then transfer 
+points one at a time in order of angle until the sets are balanced.  Note 
+that since we have to rotate by at most 180 degrees, we can use atan2, start 
+with all the angles from -PI to 0 as our first set, and rotate upwards to 
+the set from 0 to PI, all without having to worry about the wraparound.  
+Alternatively, once we've split the sets, we can use CCW as a comparator 
+on the points within a set, which works correctly so long as the set of 
+angles within a set spans less than PI.  This latter version is safer if 
+you're skeptical of using trig functions, though the bounds of the problem 
+allow atan2 to work just fine.  (In fact, all of the details of the 
+problem--points being allowed to be assigned to either set, the width 
+and height of the rectangle not being both even--were designed to 
+eliminate special cases and stability problems.)  This solution runs in 
+O(n lg n) time.
+
+Problem E:  Rings and Runes
+
+This is thinly disguised 3-SAT for which there exist heuristics, but
+the bounds on the problem were small enough that simply trying every
+assignment of values worked in plenty of time.  The requirements that
+the input be carefully validated was only mildly difficult.
+
+Problem F:  Ritual Circle
+
+The limits indicated that an O(n^3) algorithm was required, so simply
+scanning all pairs and triples of points defining a circle and
+checking each was too slow.  The intended solution was to iterate over
+all possible pairs of "friendly" points (A,B) and assume they defined
+a chord of the final result.  The center of the solution would lie on
+the perpindicular bisecting line of line segment AB.  Every other
+point, whether friend or foe, defines a simple constraint on where the
+center of the solution might lie on the bisecting line, so you
+maintain a simple legal interval of the bisecting line for the center.
+At the end, if the interval was non-empty, pick one of the endpoints
+of the interval, or the intersection of the bisecting line and the
+line segment AB as a candidate solution.  The examples made it clear
+that a valid circle must exist even though we were presenting the
+answer as a floating-point radius; this could be solved using rational
+arithmetic (where long longs were large enough for both numerator and
+denominator with no reductions required), or with floating point
+values and great care.
+
+Problem G:  Saruman's Level Up
+
+The intended solution to this was defining the function f(a,b) which
+gives the count of numbers in the interval 0..2^a-1 that had the bit
+count equal to b mod 3.  Clearly,
+
+   f(0,0) = 1, f(0,1) = f(0,2) = 0
+
+We can define a simple inductive step
+
+   f(a,b) = f(a-1,b) + f(a-1, (b-1) mod 3)
+
+since all a-bit numbers are either a 0 followed by an a-1-bit number,
+or a 1 followed by an a-1 bit number.  We can fill a table with these
+values.  After that, calculating the final result was done by
+splitting the input range into intervals whose size were powers of two
+as follows:
+
+   g(n) = g(n, 0) - 1 ;
+   g(0, 0) = 1 ;
+   g(2^a + c, b) = f(a,b) + g(c, (b-1) mod 3)
+
+Problem H:  Seating Chart
+
+-no discussion from author, please see solutions
+
+Problem I:  Spellcasting
+
+A lot of keywords were injected into this problem statement to remind 
+you of continuously compounding interest, because that's exactly what this 
+problem is asking for.  Once you've decided which elements to "invest" in, 
+you just need to figure out your "interest rate" and determine the point 
+at which your interest reaches the necessary level.  You may recall from 
+precalculus that continuously compounding interest follows exponential growth 
+with E as the base; if you don't, you have a simple ODE on your hands.  So 
+now, the question is which elements to invest in.  Here, we can consider 
+"chains" of elements, which consist of an element, its parent, its parent, 
+etc., as far back as we want (or not at all; we can have chains of length 
+1 without issue).  The key observation is that by a simple exchange argument, 
+there has to be a solution which uses a single chain of elements (not 
+necessarily back to the parentless element), which means you can solve this 
+problem greedily by checking all possible chains and choosing the chain 
+with the best power-to-energy ratio.  Since there are O(n^2) chains (n 
+starting elements, n ending elements), this algorithm runs in O(n^2) time.  
+Two edge cases to check: (1) If you have a lot of energy to start with, 
+it's possible to exceed the required power level right off the bat.  Blindly 
+solving for the time at which you equal the required power will yield a 
+negative number.  (2) Despite the exponential growth here, it is possible 
+to have a very large answer (check the worst case, where you start with 1 
+energy and need 1 billion power, and your only element provides 1 power 
+per 1 billion energy); too large, in fact, to fit within a 32-bit integer.
+
+Problem J:  Temple Build
+
+This was a dynamic programming problem, where the function you were
+optimizing was f(a), the greatest volume you could obtain in a temple
+of height a, subject to the constraints.  Starting with f(0)=0, you
+build the possible temple heights by adding in layers of each of the
+possible three brick sizes, calculating the resulting total volume by
+adding the volume of a new brick layer to the volume of a
+previously-calculated shorter temple.  It was important to realize the
+final temple might have a height shorter than that requested, so you
+needed to scan the array for the greatest volume rather than return
+the result at the top of the array, but the picture should have made
+this clear.
+
+Problem K:  Tile Cut
+
+There is almost always a flow problem in competitions at this level;
+you need to be able to recognize it and convert the statement to a
+graph.  In this case we had incoming and outging vertices
+corresponding to each square, with an edge of capacity one between the
+two.  In addition, the outgoing vertex of each W was connected to the
+incoming vertex of each I, and the outgoing vertex of each I was
+connected to the incoming vertex of each N.  Connect all the incoming
+vertices of each W to the source and the outgoing vertices of each N
+to the sink, and run your canned integer max flow algorithm.
+
+Problem L:  Tongues
+
+This problem was just a simple letter substitution.  It was important
+to understand that you had to leave non-alphabetic characters alone,
+but otherwise it was straightforward.

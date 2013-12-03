@@ -1,0 +1,52 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{tabularx}
+
+\title{Seating Chart}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Bilbo's birthday is coming up, and Frodo and Sam are in charge of all the party
+planning!  They have invited all the hobbits of Middle Earth to the party, and
+everyone will be sitting in a single row at an extremely long dining table.
+
+However, due to poor communication, Frodo and Sam have each independently put
+together a seating chart for all the hobbits at the dining table.  Help Frodo
+and Sam find out how similar their seating charts are by counting the total
+number of distinct pairs of hobbits who appear in different orders in the two
+charts.
+
+\section{Input}
+
+The input file will contain multiple test cases.  Each test case begins with a
+single line containing an integer $N$ ($1 \le N \le \mbox{100,000}$) indicating the
+number of hobbits.  The next two lines represent Frodo's and Sam's seating
+charts, respectively.  Each seating chart is specified as a single line of $N$
+unique alphabetical strings; the set of strings in each line are guaranteed to
+be identical.  The end-of-input is denoted by a line containing the number 0.
+
+\section{Output}
+
+For each input test case, output a single integer denoting, out of the $N$
+choose 2 distinct pairs of hobbits, how many pairs appear in different orders
+in Frodo's and Sam's seating arrangements.
+
+\vskip 16pt
+\noindent
+\setlength{\extrarowheight}{4pt}
+\begin{tabularx}{\textwidth}{ | X | X | }
+\hline
+\textbf{Sample Input} & \textbf{Sample Output} \\
+\verbatiminput{SeatingChart.sample.in}
+&
+\verbatiminput{SeatingChart.sample.out}
+\\
+\hline
+\end{tabularx}
+
+\end{document}

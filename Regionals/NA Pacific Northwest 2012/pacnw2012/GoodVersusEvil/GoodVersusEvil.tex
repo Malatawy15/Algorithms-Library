@@ -1,0 +1,85 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{tabularx}
+
+\title{Problem A: Good versus Evil, Who Will Win?  }
+\date{}
+
+\begin{document}
+\maketitle
+
+Middle Earth is about to go to war.  The forces of good will have many
+battles with the forces of evil.  Different races will certainly be involved.
+Each race has a certain `worth' when battling against others.  
+On the side of good we have the following races, with their associated
+worth:
+\begin{quote}
+Hobbits - 1 \\
+Men - 2 \\
+Elves - 3 \\
+Dwarves - 3 \\
+Eagles - 4 \\
+Wizards - 10 
+\end{quote}
+On the side of evil we have:
+\begin{quote}
+Orcs - 1 \\
+Men - 2 \\
+Wargs - 2 \\
+Goblins - 2 \\
+Uruk Hai - 3 \\
+Trolls - 5 \\
+Wizards - 10
+\end{quote}
+
+Although weather, location, supplies and valor play a part in any battle,
+if you add up the worth of the side of good
+and compare it with the worth of the side of evil, the side with the 
+larger worth will tend to win.
+
+Thus, given the count of each of the races on the side of good, 
+followed by the count of each of the races on the side of evil,
+determine which side wins.  
+
+\section{Input}
+
+The first line of input will contain an integer greater than 0 signifying
+the number of battles to process.  Information for each battle will consist
+of two lines of data as follows.
+
+First, there will be a line containing the count of each race on
+the side of good.  Each entry will be separated by a single space.  The
+values will be ordered as follows: Hobbits, Men, Elves, Dwarves, Eagles,
+Wizards.
+
+The next line will contain the count of each race on the side of evil
+in the following order: Orcs, Men, Wargs, Goblins, Uruk Hai, Trolls, Wizards.
+
+All values are non-negative integers.  The resulting sum of the worth for each
+side will not exceed the limit of a 32-bit integer.
+
+\section{Output}
+
+For each battle, print ``\verb+Battle+'' followed by a single space, followed by 
+the battle number starting at 1, followed by a ``\verb+:+'', followed by a single
+space.  Then print ``\verb+Good triumphs over Evil+'' if good wins.  Print 
+``\verb+Evil eradicates all trace of Good+'' if evil wins.  If there is a tie,
+then print
+``\verb+No victor on this battle field+''.
+
+\vskip 16pt
+\noindent
+\setlength{\extrarowheight}{4pt}
+\begin{tabularx}{\textwidth}{ | p{5cm} | X | }
+\hline
+\textbf{Sample Input} & \textbf{Sample Output} \\
+\verbatiminput{GoodVersusEvil.sample.in}
+&
+\verbatiminput{GoodVersusEvil.sample.out}
+\\
+\hline
+\end{tabularx}
+
+\end{document}
